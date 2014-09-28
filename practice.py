@@ -1,4 +1,4 @@
-interview cake Qs
+#interview cake Qs
 
 '''
 You're working with an intern that keeps coming to you with JavaScript code that won't run because the braces, brackets, and parentheses are off. To save you both some time, you decide to write a braces/brackets/parentheses validator.
@@ -56,7 +56,7 @@ def permute_string(string):
             after = string[i:]
             perm = before + char + after
             possibilities.append(perm)
-return possibilities
+    return possibilities
 
 
 '''
@@ -109,10 +109,6 @@ def func(amount, denomination_list, dicts = {}):
         if remaining_amt > 0: func(remaining_amt, denomination_list[1:], dicts)
         return dicts
 
-'''
-Alternative
-find all possible combinations that sum to k using itertools.combinations
-'''
 
 '''
 simple fib
@@ -122,6 +118,23 @@ def fib(num):
     if num == 1: 
         return 1
     return fib(num - 1) + fib(num - 2)
+
+
+'''
+Write a program to determine the biggest prime palindrome under 1000.
+'''
+def is_prime(num):
+    for i in xrange(2, num):
+        if num % i == 0: return False
+    return True
+
+def max_pal(): 
+    return max([i for i in xrange(0,1000) if str(i)[::-1] == str(i) and is_prime(i)])
+
+if __name__ == '__main__':
+    print max_pal()
+
+
 
 
 
