@@ -59,20 +59,22 @@ from collections import defaultdict
 import re
 
 def parse_and_dict(filename):
-	'''
-	INPUT: Filename
-	OUTPUT: Dictionary with counters
-	'''
-	list_d = defaultdict(list)
-	line_number = 0 
-	with open(filename) as f:    
-	    for line in f:
-	        [list_d[word].append(line_number) for word in re.findall(r"\w+'\w+|\w+", line)]
-	        line_number += 1
-
-	return {word:{len(line_list):line_list} for word, line_list in list_d.iteritems()}
+    '''
+    INPUT: Filename
+    OUTPUT: Dictionary with counters
+    '''
+    list_d = defaultdict(list)
+    sentence_number = 0
+    with open(filename) as f:    
+        for line in f:
+            #identifying the beginning of a sentence '. B'
+            for word in re.findall("\w+[-']\w+|\w\.\w\.|\w+|\.\s", line.lower()):
+                if word == '. ': sentence_number += 1
+                if word != '. ': list_d[word].append(sentence_number)
+        
+    return {word:{len(line_list):line_list} for word, line_list in list_d.iteritems()}
 
 
 #combine everythign here
 if __name__ == '__main__': 
-	pprint.pprint(parse_and_dict(sys.argv[1]))
+    pprint.pprint(parse_and_dict(sys.argv[1]))
