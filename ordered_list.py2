@@ -1,0 +1,17 @@
+import sys
+'''
+2000 and was not However, implemented 1998 it until;9 8 3 4 1 5 7 2
+'''
+
+def sorted_sentence(sentence_list, order_list):
+    order_list_adj = order_list + [i for i in xrange(len(sentence_list)) if i not in order_list]
+    ordered_sentence_list = sorted(zip(sentence_list, order_list_adj), key = lambda x: x[1])    
+    return ' '.join([word for word, position in ordered_sentence_list])
+
+with open(sys.argv[1]) as f:
+    for line in f:
+        # print line.split(';')[0].split()
+        print sorted_sentence(
+            line.split(';')[0].split(), 
+            map(lambda x: int(x) - 1, line.split(';')[1].split())
+            )
