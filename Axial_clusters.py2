@@ -1,0 +1,49 @@
+from itertools import combinations
+from collections import Counter
+import sys
+
+lis = []
+email_domain = None
+input = 'PEAK_TRAFFIC_input2.txt'
+if __name__ == '__main__':
+    #with open(sys.argv[1], 'r') as f:
+    with open(input, 'r') as f:
+        for line in f:
+            parsed_line = line.split()[-2:]
+            if not email_domain: 
+                email_domain = parsed_line[0].split('@')[1]
+
+            #find email handle and strip
+            parsed_line = [j.replace('@' + email_domain,'') for j in parsed_line]
+            if len(parsed_line) > 1:
+                lis.append(sorted((parsed_line[0], parsed_line[1])))
+
+    d = Counter([i[0] + '-' + i[1] for i in lis])
+
+alpha_numeric = lambda x: (int(x.partition(' ')[0]) if x[0].isdigit() else float('inf'), x)
+final_d = {}
+t = []
+for i in d:
+    target_letter = i.split('-')[0]
+    new_lis = sorted([j.split('-')[1] for j in d if target_letter == j.split('-')[0]])
+    if len(new_lis) > 1:
+        t = []
+        for i, j in combinations(new_lis, 2):
+            
+            #still need to sort before
+            items = sorted([i,j], key=float)
+            t.append(items[0] + '-' + items[1])
+        combos_to_check = set(t)
+        #clusters
+        clusters_for_this_letter = [i for i in combos_to_check if i in d]
+        
+        if len(clusters_for_this_letter) > 0: 
+            #assignment to dict
+            final_d[target_letter] = clusters_for_this_letter
+        
+        #if b-c does exist, then I should include that as a cluster
+        
+#make a cluster with by iterating through?
+for key, clusters in final_d.iteritems():
+    output_cluster = sorted([key] + ''.join(clusters).split('-'), key=long)
+    print ', '.join([i + '@' + email_domain for i in output_cluster])
