@@ -12,7 +12,7 @@ start_time = time.time()
 def elapsed():
     '''
     Tool used for time complexity enhancement
-    Measures time by instanting and storing a time.time() obj in start_time
+    Measures time by instatiating and storing a time.time() obj in start_time
     '''
     return time.time() - start_time
 
@@ -26,7 +26,7 @@ def sort_cliques_clique_level(lis):
 
 def check_if_subclique(target_clique, comparison_clique):
     '''
-    checks if target_clique is a sub-clique of comparison_clique
+    Checks if target_clique is a sub-clique of comparison_clique
     INPUT: potential sub-clique: target_clique, super-clique: comparison_clique
     OUTPUT: boolean {True, False} sub-clique or not
     '''
@@ -104,7 +104,7 @@ def find_edges(f):
 
 def find_cliques(edges):
     '''
-    INPUT: All edges within  graph
+    INPUT: All edges within the graph
     OUTPUT: All cliques
     '''
     cliques = {}
