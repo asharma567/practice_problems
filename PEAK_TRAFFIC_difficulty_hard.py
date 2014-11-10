@@ -10,19 +10,39 @@ import time
 
 start_time = time.time()
 def elapsed():
+    '''
+    Tool used for time complexity enhancement
+    Measures time by instanting and storing a time.time() obj in start_time
+    '''
     return time.time() - start_time
 
 def sort_cliques_clique_level(lis):
+    '''
+    Sorts cliques within a list alphabetically ascending
+    INPUT: unsorted list of cliques
+    Note - Final step before cliques are displayed 
+    '''
     return sorted(lis, key=lambda x:x[0])
 
 def check_if_subclique(target_clique, comparison_clique):
+    '''
+    checks if target_clique is a sub-clique of comparison_clique
+    INPUT: potential sub-clique: target_clique, super-clique: comparison_clique
+    OUTPUT: boolean {True, False} sub-clique or not
+    '''
     if comparison_clique != target_clique:
         if [node for node in target_clique if node in comparison_clique] == target_clique: 
             return True
     return False
 
 def remove_sub_cliques(cliques):
-    #use numpy array here
+    '''
+    Challenge states to only display all super-cliques
+    Hence this removes all sub-cliques
+    INPUT: list of all cliques within the network
+    OUTPUT: all super-cliques i.e. max cliques
+    '''
+
     non_repeats = []
     for clique in cliques:        
         flag = bool([clique for alt_clique in cliques if check_if_subclique(clique, alt_clique)])
@@ -31,17 +51,37 @@ def remove_sub_cliques(cliques):
     return non_repeats
 
 def print_cliques_with_email(cliques, email_domain):
+    '''
+    Iterates through nodes(users) within list of cliques and concats email domain names
+    INPUT: list of cliques with nodes with no email domain
+    OUTPUT: list of cliques with nodes with email domain
+    NOTE: function to display final output to stdout
+    '''
     for a_clique in cliques:
         print ', '.join([user + '@' + email_domain for user in a_clique])
     pass
 
 def get_domain_name(line):
+    '''
+    Parses domain_name name
+    INPUT: full user string 
+    OUTPUT: email doman
+    '''
     return line[0].split('@')[1]
 
 def strip_domain_name(line, domain_name):
+    '''
+    Removes email_domain
+    easier for network graph analysis
+    '''
     return [j.replace('@' + domain_name,'') for j in line]
 
 def find_edges(f):
+    '''
+    Finding the edges(connections) between nodes(users)
+    INPUT: file with 3 columns {timestamp, user1 email, user2 email} space delimited
+    OUTPUT: Counter dictionary with frequency of communication, email_domain
+    '''
     user_edges = Counter()
     first_line = True
     for line in f:
@@ -63,6 +103,10 @@ def find_edges(f):
     return user_edges, email_domain
 
 def find_cliques(edges):
+    '''
+    INPUT: All edges within  graph
+    OUTPUT: All cliques
+    '''
     cliques = {}
     for ctr, edge in enumerate(edges):
         target_node = edge.split('-')[0]
@@ -89,6 +133,10 @@ def find_cliques(edges):
     return cliques
 
 def sort_nodes_intra_clique(cliques):
+    '''
+    INPUT: list of cliques
+    OUTPUT: list of cliques with sorted nodes within the cliques
+    '''
     #use numpy array
     output_cluster_list = []
     ctr = 0
@@ -98,11 +146,12 @@ def sort_nodes_intra_clique(cliques):
         output_cluster_list.append(output_cluster)
     return output_cluster_list
 
-input = 'PEAK_TRAFFIC_input2.txt'
-alpha_numeric = lambda x: (int(x.partition(' ')[0]) if x[0].isdigit() else float('inf'), x)
-
 
 def main(f):
+    '''
+    INPUT: filename
+    OUTPUT: prints to stdout the final result of max cliques within the network graph
+    '''
     user_edges, email_domain = find_edges(f)
     final_cliques_set = find_cliques(user_edges)
        
@@ -116,6 +165,5 @@ def main(f):
         
 if __name__ == '__main__':
     with open(sys.argv[1], 'r') as filename:
-    # with open(input, 'r') as filename:
         main(filename)
         print >> sys.stderr, elapsed()
