@@ -166,4 +166,4 @@ def main(f):
 if __name__ == '__main__':
     with open(sys.argv[1], 'r') as filename:
         main(filename)
-        print >> sys.stderr, elapsed()
+        
