@@ -1,0 +1,13 @@
+from itertools import combinations
+
+def find_longest(s, s2):
+	for i in len() 
+		f = set(list(combinations(s, len(s) - 3))).intersection(set(list(combinations(s2, len(s) - 3))))
+		if not f: return ''.join(*f)
+	return None
+
+if __name__ == '__main__':
+	with open(sys.argv[1], 'r') as f:
+		for line in f:
+			str1, str2 = line.split(';') 
+			print find_longest(str1,str2)
