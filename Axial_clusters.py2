@@ -1,12 +1,39 @@
+'''
+https://www.codeeval.com/open_challenges/49/submit/?lid=640394
+'''
+
+
 from itertools import combinations
+from itertools import chain
 from collections import Counter
 import sys
+
+def sort_clusters(lis):
+    return sorted(lis, key=lambda x:x[0])
+
+def check_if_subcluster(targetcluster, other_cluster):
+    if other_cluster != targetcluster:
+        if [element for element in targetcluster if element in other_cluster] == targetcluster: 
+            return True
+    return False
+
+def remove_subclusters(clusters):
+    non_repeats = []
+    for cluster in clusters:        
+        flag = bool([cluster for alt_cluster in clusters if check_if_subcluster(cluster, alt_cluster)])
+        if flag: continue
+        non_repeats.append(cluster)
+    return non_repeats
+
+
 
 lis = []
 email_domain = None
 input = 'PEAK_TRAFFIC_input2.txt'
+alpha_numeric = lambda x: (int(x.partition(' ')[0]) if x[0].isdigit() else float('inf'), x)
+
 if __name__ == '__main__':
-    #with open(sys.argv[1], 'r') as f:
+#     with open(sys.argv[1], 'r') as f:
     with open(input, 'r') as f:
         for line in f:
             parsed_line = line.split()[-2:]
@@ -20,20 +47,20 @@ if __name__ == '__main__':
 
     d = Counter([i[0] + '-' + i[1] for i in lis])
 
-alpha_numeric = lambda x: (int(x.partition(' ')[0]) if x[0].isdigit() else float('inf'), x)
+
 final_d = {}
 t = []
-for i in d:
+for ctr,i in enumerate(d):
     target_letter = i.split('-')[0]
     new_lis = sorted([j.split('-')[1] for j in d if target_letter == j.split('-')[0]])
     if len(new_lis) > 1:
         t = []
         for i, j in combinations(new_lis, 2):
-            
-            #still need to sort before
-            items = sorted([i,j], key=float)
+            items = sorted([i,j])
             t.append(items[0] + '-' + items[1])
+        
         combos_to_check = set(t)
+            
         #clusters
         clusters_for_this_letter = [i for i in combos_to_check if i in d]
         
@@ -41,9 +68,16 @@ for i in d:
             #assignment to dict
             final_d[target_letter] = clusters_for_this_letter
         
-        #if b-c does exist, then I should include that as a cluster
         
-#make a cluster with by iterating through?
+        
+output_cluster_list = []
+ctr = 0
 for key, clusters in final_d.iteritems():
-    output_cluster = sorted([key] + ''.join(clusters).split('-'), key=long)
+    output_cluster = sorted(set([key] + list(chain(*[i.split('-') for i in clusters]))))
+    ctr+=1
+    output_cluster_list.append(output_cluster)
+    
+output = sort_clusters(remove_subclusters(output_cluster_list))
+
+for output_cluster in output:
     print ', '.join([i + '@' + email_domain for i in output_cluster])

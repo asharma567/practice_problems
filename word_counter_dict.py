@@ -67,14 +67,18 @@ def parse_and_dict(filename):
     sentence_number = 0
     with open(filename) as f:    
         for line in f:
-            #identifying the beginning of a sentence '. B'
+            
+            #Alternative approach to identifying the beginning of a sentence eg '. B'
+            #Though I haven't tested this against all edge cases it especially around sentence detection 
+            #would ultimately lead me to further building out the regex string
             for word in re.findall("\w+[-']\w+|\w\.\w\.|\w+|\.\s", line.lower()):
                 if word == '. ': sentence_number += 1
-                if word != '. ': list_d[word].append(sentence_number)
+                
+                # not sure how this character shows up but it does'.\r' so removing it
+                if word != '. ' and word != '.\r' : list_d[word].append(sentence_number)
         
     return {word:{len(line_list):line_list} for word, line_list in list_d.iteritems()}
 
 
-#combine everythign here
 if __name__ == '__main__': 
     pprint.pprint(parse_and_dict(sys.argv[1]))

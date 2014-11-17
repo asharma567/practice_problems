@@ -1,4 +1,7 @@
-
+'''
+You have an array of integers, and for each index you want to find the product of every integer except the integer at that index.
+Write a function that takes an array of integers and returns an array of the products.
+'''
 
 def prod_array():
 	for i in range(len(array)):
@@ -13,4 +16,3 @@ if __name__ == '__main__':
 
 
 
-	

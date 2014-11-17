@@ -1,7 +1,9 @@
 from itertools import combinations
 
 def find_longest(s, s2):
-	for i in len() 
+	for i in xrange(max(len(s), len(s2))):
+		#this isn't going to work
+		#needs to set the combination length dynamically
 		f = set(list(combinations(s, len(s) - 3))).intersection(set(list(combinations(s2, len(s) - 3))))
 		if not f: return ''.join(*f)
 	return None
