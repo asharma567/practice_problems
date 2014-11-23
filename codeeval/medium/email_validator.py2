@@ -1,0 +1,17 @@
+
+import sys
+import re
+
+def checker_valid(potential_email_address_str):
+    h = re.compile(r'^([^ @"<>]+|".*")@([a-z1-9.])+.([a-z])+$')
+    return h.match(potential_email_address_str)
+
+if __name__ == '__main__':
+    with open(sys.argv[1], 'r') as f:
+        for line in f:
+            clean_line = line.strip()
+            if len(clean_line) == 0: continue
+            if checker_valid(line.strip()):
+                print 'true'
+            else:
+                print 'false'

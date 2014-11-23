@@ -1,0 +1,20 @@
+
+'''
+given lines with '1,2,3,4,6;5' as input find pairs that sum to X
+'''
+def func (s):
+    ints, X = s.split(';')
+    mapped_ints = map(int, ints.split(','))
+    output_list = [','.join(map(str,[a,b])) for a, b in combinations(mapped_ints, 2) if a + b == int(X)]
+    if output_list: 
+        return ';'.join(output_list)
+    return 'NULL'
+
+ if __name__ == '__main__':
+	with open(sys.argv[1], 'r') as f:
+		for line in f:
+			print func
+
+
+
+			
