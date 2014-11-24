@@ -7,7 +7,7 @@ Write a function for finding the number that appears twice.
 
 
 def func(array):
-    #time/space complexity O(n) / O(n)
+    #time/space complexity O(nlogn) / O(n)
     
     sorted_array = sorted(array)
     
