@@ -4,35 +4,8 @@ https://www.codeeval.com/open_challenges/174/submit/?lid=731009
 
 
 
-"""Sample code to read in test cases:
-
-import sys
-test_cases = open(sys.argv[1], 'r')
-for test in test_cases:
-    # ignore test if it is an empty line
-    # 'test' represents the test case, do something with it
-    # ...
-    # ...
-
-test_cases.close()
-"""
 import sys
 
-ending_punc = {'.', '!', '?'}
-ending_punc_ctr = 0
-position_ctr = 0
-
-lis = [
-', yeah!', 
-', this is crazy, I tell ya.',
-', can U believe this?',
-', eh?',
-', aw yea.',
-', yo.',
-'? No way!',
-'. Awesome!'
-]
-output = []
 
 
 def print_outcome(s):
@@ -41,8 +14,22 @@ def print_outcome(s):
     OUTPUT
     
     '''
-    
+    ending_punc = {'.', '!', '?'}
+    ending_punc_ctr = 0
+    position_ctr = 0
+
+    lis = [
+    ', yeah!', 
+    ', this is crazy, I tell ya.',
+    ', can U believe this?',
+    ', eh?',
+    ', aw yea.',
+    ', yo.',
+    '? No way!',
+    '. Awesome!'
+    ]
     output = []
+    
     for char in s:
         if char in ending_punc: 
             ending_punc_ctr += 1
@@ -58,5 +45,5 @@ def print_outcome(s):
 
 
 if __name__ == '__main__':
-	with open(sys.argv[1], 'r') as f:
-	    print print_outcome(f.read())
+    with open(sys.argv[1], 'r') as f:
+        print print_outcome(f.read())
