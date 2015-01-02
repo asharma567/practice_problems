@@ -9,7 +9,6 @@ You are given a number N and a pattern. The pattern consists of lowercase latin 
 
 '''
 
-numbers_string, pattern_string = s.split()
 
 addition = lambda x: int(x.split('+')[0]) + int(x.split('+')[1])
 subtraction = lambda x: int(x.split('-')[0]) - int(x.split('-')[1])
@@ -25,21 +24,27 @@ operator_strings = {
 '/' : division,
 }
 
+def find_position_of_operator(pattern_string):
+    return [(ltr, i) for i, ltr in enumerate(pattern_string) if ltr in operator_strings.keys()]
 
-position = [(ltr, i) for i, ltr in enumerate(pattern_string) if ltr in operator_strings.keys()]
+def number_string_maker(numbers_string):
+    numbers_string_lis = list(numbers_string)
+    for tup in position:
+        opr, pos = tup
+        numbers_string_lis.insert(pos, opr)
+    return numbers_string_lis
 
-numbers_string_lis = list(numbers_string)
-for tup in position:
-    opr, pos = tup
-    numbers_string_lis.insert(pos, opr)
-
-
-for ltr in ''.join(numbers_string_lis):
-    if operator_strings.get(ltr, None):
-        print operator_strings[ltr](''.join(numbers_string_lis))
-    
+def execute_operation(numbers_string_lis): 
+    for ltr in ''.join(numbers_string_lis):
+        if operator_strings.get(ltr, None):
+            return operator_strings[ltr](''.join(numbers_string_lis))
         
-    
 if __name__ == '__main__':
-	with open(sys.argv[1], 'r') as f:
+    with open(sys.argv[1], 'r') as f:
+        for line in f:
+            numbers_string, pattern_string = line.split()
+            position = find_position_of_operator(pattern_string)
+            pattern_with_numbers = number_string_maker(numbers_string, position)
+            print execute_operation(pattern_with_numbers)
+
 
