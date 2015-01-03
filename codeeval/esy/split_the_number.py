@@ -6,7 +6,6 @@ CHALLENGE DESCRIPTION:
 You are given a number N and a pattern. The pattern consists of lowercase latin letters and one operation "+" or "-". The challenge is to split the number and evaluate it according to this pattern e.g. 
 1232 ab+cd -> a:1, b:2, c:3, d:2 -> 12+32 -> 44
 
-
 '''
 
 
