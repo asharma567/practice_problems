@@ -1,3 +1,9 @@
+'''
+This is a 2nd iteration, refactored into OOP style code 
+It's a solution to the problem at the URL below
+https://www.codeeval.com/browse/165/
+'''
+
 import sys
 from collections import Counter
 
@@ -72,7 +78,7 @@ class Grouper():
 
 def main(filename):
     '''
-    INPUT: file object
+    INPUT: file object -> parses list of lines similar BoW
     OUTPUT: None, prints to stdout the recommended domains user-by-user
     '''
     input_list = [line.strip() for line in filename]

@@ -20,7 +20,7 @@ def check_if_happy(number_str):
             change += 1
         last_gradient_direction = current_gradient_direction
 
-        if change > 2: return False
+        if change > 120: return False
         x = cur_x
 
     return True
