@@ -6,7 +6,7 @@ I want to do redo this one using:
     ii)OOP
 '''
 import sys
-import numpy as np
+
 
 #initialize matrix
 Matrix = [[0 for x in xrange(256)] for x in xrange(256)] 
@@ -59,8 +59,6 @@ def main(line):
     else:
         raise ValueError('User input is incorrect')
 
-    
-    
 
 if __name__ == '__main__':
     with open(sys.argv[1], 'r') as f:
