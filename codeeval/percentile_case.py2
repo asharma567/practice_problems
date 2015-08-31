@@ -1,0 +1,22 @@
+import sys
+
+def check_line(s):
+    s= s.strip()
+    lower_ctr = 0
+    upper_ctr = 0
+    for char in s:
+        if char.isupper(): 
+            upper_ctr += 1
+        else:
+            lower_ctr += 1
+    total_len = len(s)
+    out = 'lowercase: '+ '{:.2f}'.format(upper_ctr*100 / float(total_len))+ '          uppercase: ' +  '{:.2f}'.format((lower_ctr*100 / float(total_len)))
+    return out
+    
+
+if __name__ == '__main__':
+    with open(sys.argv[1], 'r') as f:
+        for line in f:
+            print check_line(line)
+
+

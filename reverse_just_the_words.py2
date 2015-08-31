@@ -1,9 +1,0 @@
-import sys
-
-def main(filename):
-	with open(filename) as f:
-		for line in f:
-		    print ' '.join(line.split()[::-1])
-
-if __name__ == '__main__':
-	main(sys.argv[1])

@@ -1,0 +1,11 @@
+import sys
+def tran(line):
+    l1, l2 = line.split('|')
+    x = l1.split()
+    y = l2.split()
+    return ' '.join((map(str,[int(x[i]) * int(y[i]) for i in xrange(len(y))])))
+
+if __name__ == '__main__':
+	with open(sys.argv[1], 'r') as f:
+		for line in f:
+			print tran(line)

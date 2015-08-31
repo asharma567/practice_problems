@@ -1,0 +1,21 @@
+import sys
+
+def line_conv(line):
+    string_stor = []
+    alternator_ctr = 0
+    line = line.replace('\n','')
+    for char in line:
+        if char.lower() in string.ascii_lowercase:
+            if alternator_ctr % 2: 
+                string_stor.append(char.lower())
+            else:
+                string_stor.append(char.upper())
+            alternator_ctr += 1
+        else:
+            string_stor.append(char)
+    return ''.join(string_stor)
+
+if __name__ == '__main__':
+    with open(sys.argv[1], 'r') as f:
+        for line in f:
+            print line_conv(line)

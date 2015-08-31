@@ -1,6 +1,6 @@
-Algorithms(searching and sorting)
 
 ''' 
+Algorithms(searching and sorting)
 Insertion sort - O(kn) time: it takes O(kn) to move an item to it's appropriate place
                - O(1) space complexity: it uses a single placeholder
 '''
