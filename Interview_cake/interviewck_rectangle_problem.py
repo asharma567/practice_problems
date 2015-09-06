@@ -57,10 +57,10 @@ def func(rect_dict1, rect_dict2):
         print bottom_left_corner
         
         new_rect = {
-        'x': bottom_left_corner[0][0],
-        'y': bottom_left_corner[0][1],
-        'width': abs(bottom_left_corner[0][0] - bottom_right_corner[0][0]),
-        'height': abs(bottom_left_corner[0][1] - top_left_corner[0][1])
-        }
+            'x': bottom_left_corner[0][0],
+            'y': bottom_left_corner[0][1],
+            'width': abs(bottom_left_corner[0][0] - bottom_right_corner[0][0]),
+            'height': abs(bottom_left_corner[0][1] - top_left_corner[0][1])
+            }
 
     return new_rect

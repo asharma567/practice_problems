@@ -120,41 +120,8 @@ def fib(num):
     return fib(num - 1) + fib(num - 2)
 
 
-'''
-Write a program to determine the biggest prime palindrome under 1000.
-'''
-def is_prime(num):
-    for i in xrange(2, num):
-        if num % i == 0: return False
-    return True
-
-def max_pal(): 
-    return max([i for i in xrange(0,1000) if str(i)[::-1] == str(i) and is_prime(i)])
-
-if __name__ == '__main__':
-    print max_pal()
 
 
-#Write a program to determine the sum of the first 1000 prime numbers.
-
-def is_prime(num):
-    if num == 1: return False 
-    for i in xrange(2,num):
-        if num % i == 0: return False 
-    return True
-
-if __name__ == '__main__':
-    
-    index = 0
-    ctr = 0
-    sum_of_prime_numbers = 0
-    while(ctr <= 1000):
-        if is_prime(index):
-            sum_of_prime_numbers += index
-            ctr += 1
-        index += 1
-
-    print sum_of_prime_numbers
 
 
     
