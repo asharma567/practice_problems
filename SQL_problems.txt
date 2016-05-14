@@ -1,0 +1,155 @@
+1. You are given the two tables. The first two rows of each toble are shown.
+
+    registrations
+    
+    | userid | date       |
+    | ------ | ---------- |
+    |      2 | 2014-03-07 |
+    |      5 | 2013-12-21 |
+
+    logins
+    
+    | userid | date       |
+    | ------ | ---------- |
+    |      2 | 2014-03-10 |
+    |      2 | 2014-03-11 |
+
+    Each user has one entry in the registrations table and any number of entries in the logins table.
+
+    Write a query that gives the number of times each user logged in in their first week (i.e. within 7 days after registration)
+
+    First write a query which doesn't include the users which have never logged in. Once you have that, add them with value 0.
+
+    SELECT userid, (CASE WHEN t1.cnt is NULL THEN 0 ELSE t1.cnt END) as new_cnt
+    FROM (
+        SELECT userid, COUNT(*) as cnt
+        FROM logins
+        WHERE date < date + 7
+        GROUPBY userid
+    ) as t1
+        RIGHT JOIN registrations r ON r.userid = t1.userid
+
+
+
+
+2. Facebook prompts users with questions to answer to fill in their profile. You have the following table showing which questions the users have answered.
+
+    | userid | questionid |
+    | ------ | ---------- |
+    |     10 |          4 |
+
+    Each user will have an entry in the table for each question they've answered.
+
+    Write a query which gives, for each individual user, a question to suggest for them to answer.
+
+    #this assumes every question has been answered at least once
+    -- first a table for all the question numbers
+    
+    WITH questions AS (
+        SELECT DISTINCT questionid FROM table
+    )
+
+    SELECT userid
+    FROM questions
+        
+    -- find the number of entries not in this table
+
+    SELECT *
+    FROM 
+
+    ## look up the solution for this question
+
+    Original table name given as 'answeredQ'.
+    Assume there exists a 'AllQuestions' and 'AllUsers' table that has every questionid and userid stored as a primary key. (Else can create these tables using DISTINCT, or eyeballing, etc.)
+    Create 'allQ', a table that is a combination of every user with every question.
+    SELECT u.userid, q.questionid, FROM AllUsers u CROSS JOIN AllQuestions q
+    Subtract 'answeredQ' from 'allQ' to create 'unansweredQ'.
+    SELECT * INTO unansweredQ FROM allQ EXCEPT answeredQ
+    If you one want to only get one unansweredQ per user you could do:
+    SELECT userid, MIN(questionid) FROM unansweredQ GROUP BY userid
+
+
+
+3. You are running an A/B test to test out a new feature. You have the following tables:
+
+    test_groups
+    
+    | userid | group   |
+    | ------ | ------- |
+    |      3 | CONTROL |
+    |     10 |       A |
+
+    opt_out
+    
+    | userid |
+    | ------ |
+    |     14 |
+
+    following
+    
+    | follower | followee |
+    | -------- | -------- |
+    |       10 |       14 |
+    
+    (This means user 10 is following user 14)
+
+    The opt_out table contains the users which have opted out of receiving email. The friend table contains
+
+    We would like to send an email to all the users who are in the test group A, who have not opted out are following fewer than 30 users.
+
+
+    -- all users that have not opted out and are following less than 30 users
+
+    SELECT userid
+    FROM test_groups t
+    WHERE t.group = 'A'
+        AND userid NOT IN (SELECT userid FROM opt_out)
+        AND userid IN (  -- following less than 30
+            SELECT follower as userid, COUNT(*)
+            FROM follower
+            GROUPBY follower
+            HAVING COUNT(follower) < 30
+        )
+
+
+
+4. Write a query that gets all the users which have not received at least one message every day over the past 30 days.
+
+    messages
+    
+    | sender | recipient | date       |
+    | ------ | --------- | ---------- |
+    |     12 |         3 | 2013-08-19 |
+
+    --get all users
+    WITH all_users as (
+        select all_users.users
+        from (
+            select sender as users
+            from messages
+
+            UNION
+
+            select recipient as users
+            from messages
+        ) as all_users
+
+    -- get subset of users
+    WITH subset_users as (
+        select subset_users.users
+        from (
+            select sender as users
+            from messages
+            where date < today() + 30
+
+            UNION
+
+            select recipient as users
+            from messages
+            where date < today() + 30
+        ) as subset_users
+
+    SELECT a.users
+    FROM all_users a
+        LEFT JOIN subset_user s on a.users = s.users
+    WHERE users IS NULL
