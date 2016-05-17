@@ -16,20 +16,24 @@ Sometimes he puts emoticons within parentheses, and you find it hard to tell if 
 - A smiley face ":)" or a frowny face ":(" 
 '''
 
-parens_dict = {
-'(':')'
-}
+import sys
 
-smiley_dict = {
-':':['(',')']
-}
-
-seq_closed_parent_cnt = 0
-potential_smiley_cnt = 0 
-open_parent_cnt = 0 
-closed_parent_cnt = 0
 
 def parenthesis_checker(line):
+
+    parens_dict = {
+    '(':')'
+    }
+
+    smiley_dict = {
+    ':':['(',')']
+    }
+
+    seq_closed_parent_cnt = 0
+    potential_smiley_cnt = 0 
+    open_parent_cnt = 0 
+    closed_parent_cnt = 0
+
 
     for i, char in enumerate(line):
         #check emoticon
@@ -75,8 +79,4 @@ def parenthesis_checker(line):
 if __name__ == '__main__':
     with open(sys.argv[1], 'r') as f:
         for line in f:
-            if parenthesis_checker(lines.strip()):
-                print True
-            else:
-                print False
-
+            print 'YES' if parenthesis_checker(line.strip()) else 'NO'

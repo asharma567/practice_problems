@@ -16,4 +16,20 @@ The following numeric-to-character correspondances exist:
 
 Numbers can also stand for themselves.  How would you build this?
 '''
+from itertools import product
 
+mappings_dict = {
+	'1' : ['1'],
+	'2' : ['a','b','c','2'],
+	'3' : ['d','e','f','3'],
+	'4' : ['g','h','i','4'],
+	'5' : ['j','k','l','5'],
+	'6' : ['m','n','o','6'],
+	'7' : ['p','q','r','s','7'],
+	'8' : ['t','u','v','8'],
+	'9' : ['w','x','y','z','9'],
+	'0' : ['0'],
+}
+
+def fund(input_str):
+    return list(product(*map(lambda x: mappings_dict[x], list(input_str))))
