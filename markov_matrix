@@ -1,0 +1,52 @@
+import numpy as np
+
+def markov_chains(sequence):
+    
+    #cardinality of the sequence to make rows and columns
+    states_ = set(sequence)
+    
+    #length of states
+    n = len(states_)
+    
+    #this produces a dict which imposes some int ordinatlity to the letters based sequence. it indicate of the state number of a markov chain
+    map_ = dict([(key, i) for i,key in enumerate(states_)])
+    
+
+    markov_matrix = np.zeros((n,n))
+    
+    for i in range(len(sequence) - 1):
+        current_state, next_state = sequence[i:i+2]
+        markov_matrix[map_[current_state], map_[next_state]] += 1
+    
+    row_sums = markov_matrix.sum(axis = 1)
+    markov_matrix = markov_matrix / row_sums[:, np.newaxis]
+    return markov_matrix
+    
+    
+seq = "asdssdsasddfadaasda"
+matrix_ = markov_chains(seq)
+
+
+def markoc_matrix_maker(some_str_seq):
+    from collections import Counter
+    import numpy as np
+
+    gram=[]
+    for i in range(len(some_str_seq) - 1):
+        curr_char = some_str_seq[i]
+        trailing_char = some_str_seq[i + 1]
+
+        gram.append(curr_char+trailing_char)
+
+    map_ = set(some_str_seq)
+    n_ = len(map_)
+    dic = Counter(gram)
+    markov_matrix_ = np.zeros((n_,n_))
+
+    for key  in dic.keys():
+        curr, next = key
+        markov_matrix_[map_[curr], map_[next]] = dic[key]
+
+
+    return markov_matrix_ / markov_matrix_.sum(axis=1).reshape(-1,1)
+    
